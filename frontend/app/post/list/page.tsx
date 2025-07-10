@@ -33,7 +33,7 @@ export default async function Page() {
       <hr />
 
       <ul>
-        {pageDto.items?.map((item: PostDto) => {
+        {pageDto.items.map((item: PostDto) => {
           return (
             <li className="border-2 border-red-500 my-2 p-2" key={item.id}>
               <div>title : {item.title}</div>
