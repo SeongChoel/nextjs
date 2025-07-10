@@ -106,4 +106,8 @@ public class Rq {
 
         response.addCookie(cookie);
     }
+
+    public Member getRealActor(Member actor) {
+        return memberService.findById(actor.getId()).get();
+    }
 }

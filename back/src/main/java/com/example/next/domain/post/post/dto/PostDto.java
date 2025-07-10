@@ -32,7 +32,7 @@ public class PostDto {
         this.modifiedDate = post.getModifiedDate();
         this.title = post.getTitle();
         this.authorId = post.getAuthor().getId();
-        this.authorName = post.getAuthor().getUsername();
+        this.authorName = post.getAuthor().getNickname();
         this.published = post.isPublished();
         this.listed = post.isListed();
     }

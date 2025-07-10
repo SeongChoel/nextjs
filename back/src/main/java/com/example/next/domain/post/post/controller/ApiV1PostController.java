@@ -1,6 +1,7 @@
 package com.example.next.domain.post.post.controller;
 
 import com.example.next.domain.member.member.entity.Member;
+import com.example.next.domain.member.member.service.MemberService;
 import com.example.next.domain.post.post.dto.PageDto;
 import com.example.next.domain.post.post.dto.PostWithContentDto;
 import com.example.next.domain.post.post.entity.Post;
@@ -45,6 +46,7 @@ public class ApiV1PostController {
 
     private final PostService postService;
     private final Rq rq;
+    private final MemberService memberService;
 
     @Operation(
             summary = "글 목록 조회",
@@ -127,8 +129,8 @@ public class ApiV1PostController {
     public RsData<PostWithContentDto> write(@RequestBody @Valid WriteReqBody reqBody) {
 
         Member actor = rq.getActor();
-
-        Post post = postService.write(actor, reqBody.title(), reqBody.content(), reqBody.published(), reqBody.listed());
+        Member realActor = rq.getRealActor(actor);
+        Post post = postService.write(realActor, reqBody.title(), reqBody.content(), reqBody.published(), reqBody.listed());
 
         return new RsData<>(
                 "201-1",
