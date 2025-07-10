@@ -1,3 +1,9 @@
+import { components } from "@/src/lib/backend/apiV1/schema";
+
+type PostDto = components["schemas"]["PostDto"];
+
+type PostItemPageDto = components["schemas"]["PageDto"];
+
 export default async function Page() {
   const response = await fetch("http://localhost:8080/api/v1/posts");
 
@@ -6,8 +12,7 @@ export default async function Page() {
   }
 
   const rsData = await response.json();
-
-  const pageDto = rsData.data;
+  const pageDto: PostItemPageDto = rsData.data;
 
   console.log(rsData.code);
   console.log(rsData.msg);
@@ -28,7 +33,7 @@ export default async function Page() {
       <hr />
 
       <ul>
-        {pageDto.items.map((item: any) => {
+        {pageDto.items?.map((item: PostDto) => {
           return (
             <li className="border-2 border-red-500 my-2 p-2" key={item.id}>
               <div>title : {item.title}</div>
