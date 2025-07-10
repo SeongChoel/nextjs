@@ -193,7 +193,7 @@ public class ApiV1PostControllerTest {
         int page = 1;
         int pageSize = 3;
         // 검색어, 검색 대상
-        String keywordType = "TITLE";
+        String keywordType = "";
         String keyword = "";
 
 
