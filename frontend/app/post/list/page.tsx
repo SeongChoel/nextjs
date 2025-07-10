@@ -1,4 +1,5 @@
 import { paths } from "@/src/lib/backend/apiV1/schema";
+import Link from "next/link";
 import createClient from "openapi-fetch";
 
 const client = createClient<paths>({
@@ -11,15 +12,24 @@ export default async function Page({
   searchParams: {
     keywordType?: "title" | "content";
     keyword: string;
+    pageSize: number;
+    page: number;
   };
 }) {
-  const { keywordType = "title", keyword = "" } = await searchParams;
+  const {
+    keywordType = "title",
+    keyword = "",
+    pageSize = 10,
+    page = 1,
+  } = await searchParams;
 
   const response = await client.GET("/api/v1/posts", {
     params: {
       query: {
-        keyword: keyword,
-        keywordType: keywordType,
+        keyword,
+        keywordType,
+        pageSize,
+        page,
       },
     },
   });
@@ -27,23 +37,12 @@ export default async function Page({
   const rsData = response.data!!;
   const pageDto = rsData.data;
 
-  // const response = await fetch(
-  //   `http://localhost:8080/api/v1/posts?keywordType=${keywordType}&keyword=${keyword}`
-  // );
-
-  // if (!response.ok) {
-  //   throw new Error("에러");
-  // }
-
-  // const rsData = await response.json();
-  // const pageDto: PostItemPageDto = rsData.data;
-
   return (
     <div>
       <h1>글 목록</h1>
 
       <div>응답 코드 : {rsData.code}</div>
-      <div>결과 메시지 : {rsData.msg} </div>
+      <div>결과 메시지 : {rsData.msg}</div>
 
       <div>totalPages : {pageDto.totalPages}</div>
       <div>totalItems : {pageDto.totalItems}</div>
@@ -64,12 +63,32 @@ export default async function Page({
           defaultValue={keyword}
         />
         <input type="submit" value="검색" />
+        <label className="ml-5" htmlFor="">
+          페이지당 행 개수 :
+        </label>
+        <select name="pageSize">
+          <option value="10">10</option>
+          <option value="30">30</option>
+          <option value="50">50</option>
+        </select>
       </form>
 
+      <div className="flex gap-3">
+        {Array.from({ length: pageDto.totalPages }, (_, i) => i + 1).map(
+          (page) => {
+            return (
+              <Link key={page} href={`/post/list?page=${page}`}>
+                {page}
+              </Link>
+            );
+          }
+        )}
+      </div>
       <ul>
         {pageDto.items.map((item) => {
           return (
             <li className="border-2 border-red-500 my-2 p-2" key={item.id}>
+              <div>id : {item.id}</div>
               <div>title : {item.title}</div>
               <div>authorId : {item.authorId}</div>
               <div>authorName : {item.authorName}</div>
