@@ -110,7 +110,7 @@ public class ApiV1PostControllerTest {
                 .andExpect(jsonPath("$.data.totalPages").isNumber()); // 전체 페이지 개수
 
 
-        Page<Post> postPage = postService.getListedItems(1, 3, SearchKeywordType.TITLE, "");
+        Page<Post> postPage = postService.getListedItems(1, 3, SearchKeywordType.title, "");
         List<Post> posts = postPage.getContent();
         checkPosts(posts, resultActions);
 
@@ -123,7 +123,7 @@ public class ApiV1PostControllerTest {
         int page = 1;
         int pageSize = 3;
         // 검색어, 검색 대상
-        String keywordType = "TITLE";
+        String keywordType = "title";
         String keyword = "title";
 
         ResultActions resultActions = mvc
@@ -145,7 +145,7 @@ public class ApiV1PostControllerTest {
                 .andExpect(jsonPath("$.data.totalPages").value(3))
                 .andExpect(jsonPath("$.data.totalItems").value(7));
 
-        Page<Post> postPage = postService.getListedItems(page, pageSize, SearchKeywordType.TITLE, keyword);
+        Page<Post> postPage = postService.getListedItems(page, pageSize, SearchKeywordType.title, keyword);
         List<Post> posts = postPage.getContent();
         checkPosts(posts, resultActions);
 
@@ -158,7 +158,7 @@ public class ApiV1PostControllerTest {
         int page = 1;
         int pageSize = 3;
         // 검색어, 검색 대상
-        String keywordType = "CONTENT";
+        String keywordType = "content";
         String keyword = "content";
 
         ResultActions resultActions = mvc
@@ -180,7 +180,7 @@ public class ApiV1PostControllerTest {
                 .andExpect(jsonPath("$.data.totalPages").value(3))
                 .andExpect(jsonPath("$.data.totalItems").value(7));
 
-        Page<Post> postPage = postService.getListedItems(page, pageSize, SearchKeywordType.TITLE, keyword);
+        Page<Post> postPage = postService.getListedItems(page, pageSize, SearchKeywordType.title, keyword);
         List<Post> posts = postPage.getContent();
         checkPosts(posts, resultActions);
 
@@ -218,7 +218,7 @@ public class ApiV1PostControllerTest {
                 .andExpect(jsonPath("$.data.totalItems").value(4));
 
 
-        Page<Post> postPage = postService.getMines(loginedMember, page, pageSize, SearchKeywordType.TITLE  , keyword);
+        Page<Post> postPage = postService.getMines(loginedMember, page, pageSize, SearchKeywordType.title  , keyword);
         List<Post> posts = postPage.getContent();
         checkPosts(posts, resultActions);
 
