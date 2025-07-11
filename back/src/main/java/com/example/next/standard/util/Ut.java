@@ -1,7 +1,7 @@
 package com.example.next.standard.util;
 
+import com.example.next.global.app.AppConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -12,11 +12,10 @@ import java.util.Map;
 public class Ut {
     public static class Json {
 
-        private static final ObjectMapper objectMapper = new ObjectMapper();
+        private static final ObjectMapper objectMapper = AppConfig.getObjectMapper();
 
         public static String toString(Object obj) {
             try {
-                objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
                 return objectMapper.writeValueAsString(obj);
             } catch (Exception e) {
                 throw new RuntimeException(e);
