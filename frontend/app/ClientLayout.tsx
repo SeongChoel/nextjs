@@ -15,7 +15,10 @@ export default function ClinetLayout({
           <Link href="/post/list">글 목록</Link>
           <Link href="/member/login">로그인</Link>
         </header>
-        <div className="flex-grow">{children}</div>
+        <div className="flex-grow">
+          {children}
+          <input type="text" />
+        </div>
         <footer>푸터</footer>
       </body>
     </html>
