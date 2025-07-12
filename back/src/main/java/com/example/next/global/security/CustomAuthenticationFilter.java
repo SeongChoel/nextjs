@@ -57,7 +57,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String accessToken = rq.getValueFromCookie("accessToken");
-        String apiKey = rq.getValueFromCookie("apikey");
+        String apiKey = rq.getValueFromCookie("apiKey");
 
         if (accessToken == null || apiKey == null) {
             return null;
@@ -83,7 +83,7 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
 
         String newAccessToken = memberService.genAccessToken(opRefMember.get());
         rq.setHeader("Authorization", "Bearer " + newAccessToken);
-        rq.addCookie("accessToken", newAccessToken);
+        rq.addCookie("apiKey", apiKey);
 
         return opRefMember.get();
     }
