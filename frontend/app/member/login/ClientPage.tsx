@@ -1,11 +1,8 @@
 "use client";
 
 import client from "@/src/lib/backend/client";
-import { useRouter } from "next/navigation";
 
 export default function ClinetPage() {
-  const router = useRouter();
-
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -27,7 +24,8 @@ export default function ClinetPage() {
       return;
     }
 
-    router.push(`/post/list`);
+    //router.push(`/post/list`); //브라우저 방식x, nextjs방식
+    window.location.href = "/post/list"; //브라우저 방식
   }
 
   return (
