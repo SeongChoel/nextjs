@@ -1,54 +1,19 @@
 "use client";
 
-import client from "@/src/lib/backend/client";
-import { useRouter } from "next/navigation";
+import { components } from "@/src/lib/backend/apiV1/schema";
 
-export default function ClinetPage() {
-  const router = useRouter();
-
-  async function login(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const form = e.target as HTMLFormElement;
-
-    const username = form.username.value;
-    const password = form.password.value;
-
-    const response = await client.POST("/api/v1/members/login", {
-      body: {
-        username,
-        password,
-      },
-      credentials: "include",
-    });
-
-    if (response.error) {
-      alert(response.error.msg);
-      return;
-    }
-
-    router.push(`/post/list`);
-  }
-
+export default function ClinetPage({
+  me,
+}: {
+  me: components["schemas"]["MemberDto"];
+}) {
   return (
     <>
-      <div>로그인 페이지</div>
-
-      <form onSubmit={login} className="flex flex-col w-1/4 gap-3">
-        <input
-          type="text"
-          name="username"
-          placeholder="아이디 입력"
-          className="border-2 border-black"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="패스워드 입력"
-          className="border-2 border-black"
-        />
-        <input type="submit" value="로그인" />
-      </form>
+      <div>내정보 페이지</div>
+      <div>번호 : {me.id}</div>
+      <div>닉네임 : {me.nickname}</div>
+      <div>가입일자 : {me.createdDate}</div>
+      <div>수정일자 : {me.modifiedDate}</div>
     </>
   );
 }
