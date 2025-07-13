@@ -21,6 +21,7 @@ export default function ClinetLayout({
           <Link href="/post/list">글 목록</Link>
           <Link href="/post/write">글 작성</Link>
           {!isLogined && <Link href="/member/login">로그인</Link>}
+          {!isLogined && <Link href="/member/join">회원가입</Link>}
           {isLogined && (
             <Link
               href=""
