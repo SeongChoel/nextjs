@@ -11,7 +11,7 @@ export default async function Page({
     id: number;
   };
 }) {
-  const id = await params.id;
+  const { id } = await params;
 
   const response = await client.GET("/api/v1/posts/{id}", {
     params: {

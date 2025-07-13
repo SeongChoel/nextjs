@@ -13,6 +13,8 @@ export default function ClinetPage() {
 
     const title = form._title.value;
     const content = form.content.value;
+    const published = form.published.checked;
+    const listed = form.listed.checked;
 
     if (title.trim().length === 0) {
       alert("제목을 입력해주세요.");
@@ -28,6 +30,8 @@ export default function ClinetPage() {
       body: {
         title,
         content,
+        published,
+        listed,
       },
       credentials: "include",
     });
@@ -45,7 +49,17 @@ export default function ClinetPage() {
 
   return (
     <>
+      <h1>글 작성 페이지</h1>
+      <hr />
       <form onSubmit={write} className="flex flex-col w-1/4 gap-3">
+        <div className="flex gap-3">
+          <label>공개 여부 : </label>
+          <input type="checkbox" name="published" />
+        </div>
+        <div className="flex gap-3">
+          <label>검색 여부 : </label>
+          <input type="checkbox" name="listed" />
+        </div>
         <input
           type="text"
           name="_title"
